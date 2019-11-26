@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BookShelf.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,9 +40,8 @@ namespace BookShelf.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    Discriminator = table.Column<string>(nullable: false),
-                    FirstName = table.Column<string>(maxLength: 25, nullable: true),
-                    LastName = table.Column<string>(maxLength: 35, nullable: true)
+                    FirstName = table.Column<string>(maxLength: 25, nullable: false),
+                    LastName = table.Column<string>(maxLength: 35, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -163,7 +162,7 @@ namespace BookShelf.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(maxLength: 25, nullable: false),
                     LastName = table.Column<string>(maxLength: 35, nullable: false),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -182,9 +181,9 @@ namespace BookShelf.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ISBN = table.Column<string>(nullable: true),
+                    ISBN = table.Column<string>(nullable: false),
                     Title = table.Column<string>(maxLength: 55, nullable: false),
-                    Genre = table.Column<string>(nullable: true),
+                    Genre = table.Column<string>(nullable: false),
                     PublishDate = table.Column<DateTime>(nullable: false),
                     AuthorId = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: true)
@@ -197,7 +196,7 @@ namespace BookShelf.Migrations
                         column: x => x.AuthorId,
                         principalTable: "Authors",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Books_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -208,8 +207,8 @@ namespace BookShelf.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "FirstName", "LastName" },
-                values: new object[] { "00000000-ffff-ffff-ffff-ffffffffffff", 0, "5c229cf0-71a8-4f83-be64-5660b058bda2", "ApplicationUser", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEJirOIP070dIXgcKZ8KX0Zp3dfCzXA8fx/XZ8D8cHhRryjIOZlBcvb/ehiBZdjR/Ow==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", false, "admin@admin.com", "admin", "admin" });
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "00000000-ffff-ffff-ffff-ffffffffffff", 0, "b21fa135-9115-4919-bb59-230a543b8315", "admin@admin.com", true, "admin", "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEAlpVuTTwgUJpWh1xIlXIWFPbWh78sLM0inyqo5q2uP6D6S51am2HmSvDqMcUIPh2w==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", false, "admin@admin.com" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

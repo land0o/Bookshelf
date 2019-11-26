@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookShelf.Models
 {
@@ -21,14 +19,9 @@ namespace BookShelf.Models
         [Display(Name = "Surname")]
         public string LastName { get; set; }
 
+        [NotMapped]
         [Display(Name = "Full Name")]
-        public string FullName
-        {
-            get
-            {
-                return $"{FirstName} {LastName}";
-            }
-        }
+        public string FullName => $"{FirstName} {LastName}";
         public List<Author> Authors { get; set; }
         public List<Book> Books { get; set; }
     }

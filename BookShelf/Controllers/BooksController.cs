@@ -28,7 +28,10 @@ namespace BookShelf.Controllers
         // GET: Books
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Books.Include(b => b.Author).Include(b => b.User);
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var applicationDbContext = _context.Books.Include(b => b.Author)
+                                                        .Include(b => b.User)
+                                                        .Where(b => b.UserId == user.Id);
             return View(await applicationDbContext.ToListAsync());
         }
 

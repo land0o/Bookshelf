@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookShelf.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -39,6 +39,6 @@ namespace BookShelf.Data
             var passwordHash = new PasswordHasher<ApplicationUser>();
             user.PasswordHash = passwordHash.HashPassword(user, "Admin8*");
             modelBuilder.Entity<ApplicationUser>().HasData(user);
-        }
+        }    
     }
 }

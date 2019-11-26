@@ -5,6 +5,7 @@ namespace BookShelf.Models
 {
     public class Author
     {
+        [Required]
         public int Id { get; set; }
 
         [Required]
@@ -29,7 +30,7 @@ namespace BookShelf.Models
         }
 
         public List<Book> Books { get; set; }
-
+        [Required]
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
     }
